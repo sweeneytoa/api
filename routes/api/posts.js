@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const posts = require('../../posts');
+const jwt = require('jsonwebtoken');
 
 
 router.get('/', (req, res) => res.json(posts));
@@ -15,7 +16,11 @@ router.get('/:id', (req, res) => {
     }
 });
 
-router.post('/', (req, res) => {
+router.post('/', verifyToken, (req, res) => {
+    jwt.verify(req.token, 'secretkey', (err, authData) => {
+        if(err) {
+          res.sendStatus(403);
+        } else {
     const newpost = {
         id: posts.length + 1,
         title: req.body.title,
@@ -25,6 +30,8 @@ router.post('/', (req, res) => {
         price: req.body.price,
         date: Date(Date.now()).toString(),
         delivery: req.body.delivery,
+        email: authData.users.email,
+        username: authData.users.username
     }
 
     if (!newpost.title || !newpost.description || !newpost.category || !newpost.location || !newpost.price || !newpost.delivery) {
@@ -35,6 +42,8 @@ router.post('/', (req, res) => {
     res.json(posts);
     // res.redirect('/');
 
+    }
+});
 });
 
 
@@ -70,5 +79,26 @@ router.delete('/:id', (req, res) => {
         res.status(400).json({ msg: `No post with the id of ${req.params.id}` });
     }
 });
+
+
+function verifyToken(req, res, next) {
+    // Get auth header value
+    const bearerHeader = req.headers['authorization'];
+    // Check if bearer is undefined
+    if(typeof bearerHeader !== 'undefined') {
+      // Split at the space
+      const bearer = bearerHeader.split(' ');
+      // Get token from array
+      const bearerToken = bearer[1];
+      // Set the token
+      req.token = bearerToken;
+      // Next middleware
+      next();
+    } else {
+      // Forbidden
+      res.sendStatus(403);
+    }
+
+}
 
 module.exports = router;

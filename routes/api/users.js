@@ -28,17 +28,27 @@ router.post('/registration', (req, res) => {
 });
 
 
-router.post('/login', (req, res) => {
-    jwt.sign({users}, 'secretkey', (err, token) => {
-      res.json({
-        token
-      });
-    });
-  });
 
-
-
-  
+  router.post('/login', async (req, res) => {
+    const user = users.find(users => users.username === req.body.username)
+    if (user == null) {
+      return res.status(400).send('Cannot find user')
+    }
+    try {
+      if(await bcrypt.compare(req.body.password, user.password)) {
+        jwt.sign({users : user}, 'secretkey', (err, token) => {
+            res.json({
+              token
+            });
+          });
+      } else {
+        res.send('Not Allowed')
+      }
+    } catch {
+      res.status(500).send()
+    }
+    
+  })
   
   // FORMAT OF TOKEN
   // Authorization: Bearer <access_token>
