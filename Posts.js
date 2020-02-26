@@ -3,7 +3,7 @@ const posts = [
     {   id: 1, 
         title: 'Zara',
         description: 'Best shirt',
-        category: 'Clothers',
+        category: 'Cars',
         location: 'Oulu',
         images: '',
         price: '400',
@@ -11,7 +11,7 @@ const posts = [
         delivery: 'Pickup',
         seller: 'Emil',
         email: 'email@yahoo.com',
-        name: 'albi'
+        username: 'Emil'
     },
 
     {   id: 2, 
@@ -25,7 +25,7 @@ const posts = [
         delivery: 'Shipping',
         seller: 'Juar',
         email: 'email@gmail.com',
-        name: 'albi'
+        username: 'Juar'
     },
 
     
