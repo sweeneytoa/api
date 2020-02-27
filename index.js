@@ -4,7 +4,7 @@ const port = 3000
 
 
 app.use(express.json());
-
+app.use('/uploads', express.static('uploads'));
 
 
 const logger = (req, res, next) => {

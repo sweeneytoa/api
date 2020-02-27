@@ -2,8 +2,29 @@ const express = require('express');
 const router = express.Router();
 const posts = require('../../posts');
 const jwt = require('jsonwebtoken');
+const multer = require('multer');
 
 
+const storage = multer.diskStorage({
+    destination: function(req, file, cb) {
+      cb(null, './uploads/');
+    },
+    filename: function(req, file, cb) {
+      cb(null, new Date().toISOString() + file.originalname);
+    }
+});
+
+const fileFilter = (req, file, cb) => {
+    // reject a file
+    if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png' || file.mimetype === 'image/jpg') {
+      cb(null, true);
+    } else {
+      cb(null, false);
+    }
+};
+  
+
+const upload = multer({storage: storage, fileFilter: fileFilter});
 
 router.get('/', (req, res) => res.json(posts));
 
@@ -17,17 +38,19 @@ router.get('/:id', (req, res) => {
     }
 });
 
-router.post('/', verifyToken, (req, res) => {
+router.post('/', verifyToken, upload.array('images',4), (req, res, next) => {
     jwt.verify(req.token, 'secretkey', (err, authData) => {
         if(err) {
             return res.sendStatus(403);
         } else {
+            console.log(req.files);
             const newpost = {
                 id: posts.length + 1,
                 title: req.body.title,
                 description: req.body.description,
                 category: req.body.category,
                 location: req.body.location,
+                images: req.files.map(file => file.path),
                 price: req.body.price,
                 date: new Date().toISOString().slice(0,10),
                 delivery: req.body.delivery,
