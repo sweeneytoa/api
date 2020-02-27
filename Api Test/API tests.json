@@ -1,12 +1,12 @@
 {
 	"info": {
-		"_postman_id": "3ada9866-4ab4-46fd-8980-85060431b173",
-		"name": "API tests",
+		"_postman_id": "626d41d9-08ba-4bd1-9571-1aca0ed6d325",
+		"name": "API tests Copy",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "http://localhost:3000/api/registration",
+			"name": "https://apioulu.herokuapp.com/api/registration",
 			"request": {
 				"method": "POST",
 				"header": [
@@ -21,12 +21,13 @@
 					"raw": "{\n\t\"username\": \"Emil\",\n\t\"email\": \"emilbtl@yahoo.com\",\n\t\"password\": \"bosi\"\n}"
 				},
 				"url": {
-					"raw": "http://localhost:3000/api/registration",
-					"protocol": "http",
+					"raw": "https://apioulu.herokuapp.com/api/registration",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"apioulu",
+						"herokuapp",
+						"com"
 					],
-					"port": "3000",
 					"path": [
 						"api",
 						"registration"
@@ -36,7 +37,7 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:3000/api/login",
+			"name": "https://apioulu.herokuapp.com/api/login",
 			"request": {
 				"auth": {
 					"type": "bearer",
@@ -82,7 +83,7 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:3000/api/posts",
+			"name": "https://apioulu.herokuapp.com/api/posts",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -102,7 +103,7 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:3000/api/posts/1",
+			"name": "https://apioulu.herokuapp.com/api/posts/1",
 			"request": {
 				"method": "PUT",
 				"header": [
@@ -138,7 +139,7 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:3000/api/posts",
+			"name": "https://apioulu.herokuapp.com/api/posts",
 			"request": {
 				"method": "POST",
 				"header": [
@@ -213,7 +214,7 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:3000/api/posts/1",
+			"name": "https://apioulu.herokuapp.com/api/posts/1",
 			"request": {
 				"method": "PUT",
 				"header": [
@@ -249,7 +250,7 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:3000/api/posts/1",
+			"name": "https://apioulu.herokuapp.com/api/posts/1",
 			"request": {
 				"method": "DELETE",
 				"header": [
@@ -276,7 +277,7 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:3000/api/posts/category/Cars",
+			"name": "https://apioulu.herokuapp.com/api/posts/category/Cars",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -298,7 +299,7 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:3000/api/posts/date/2020-02-27",
+			"name": "https://apioulu.herokuapp.com/api/posts/date/2020-02-27",
 			"request": {
 				"method": "GET",
 				"header": [],
