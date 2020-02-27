@@ -14,12 +14,15 @@ const logger = (req, res, next) => {
 
 app.use(logger);
 
-//paths for routes
-app.use('/api/posts', require('./routes/api/posts'));
-app.use('/api', require('./routes/api/users'));
+
 
 //body parses
 app.use(express.json());
 app.use(express.urlencoded({ extended: false}));
+
+
+//paths for routes
+app.use('/api/posts', require('./routes/api/posts'));
+app.use('/api', require('./routes/api/users'));
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
