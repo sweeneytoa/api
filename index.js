@@ -14,7 +14,7 @@ const logger = (req, res, next) => {
 
 app.use(logger);
 
-
+//paths for routes
 app.use('/api/posts', require('./routes/api/posts'));
 app.use('/api', require('./routes/api/users'));
 
