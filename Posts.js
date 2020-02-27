@@ -14,7 +14,7 @@ const posts = [
     },
 
     {   id: 2, 
-        title: 'BMW',
+        title: 'BMWW',
         description: 'Fastest car',
         category: 'Cars',
         location: 'Oulu',
