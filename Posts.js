@@ -9,9 +9,8 @@ const posts = [
         price: '400',
         date: '2019',
         delivery: 'Pickup',
-        seller: 'Emil',
         email: 'email@yahoo.com',
-        username: 'Emil'
+        username: 'Emil',
     },
 
     {   id: 2, 
@@ -23,9 +22,8 @@ const posts = [
         price: '40000',
         date: '2017',
         delivery: 'Shipping',
-        seller: 'Juar',
         email: 'email@gmail.com',
-        username: 'Juar'
+        username: 'Juar',
     },
 
     

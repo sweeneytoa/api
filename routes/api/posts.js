@@ -47,7 +47,7 @@ router.post('/', verifyToken, upload.array('images',4), (req, res, next) => {
     jwt.verify(req.token, 'secretkey', (err, authData) => {
         if(err) {
             //if token autherization failed sent error
-            return res.sendStatus(403);
+            return res.sendStatus(401);
         } else {
             //show images upload in connsole
             console.log(req.files);
@@ -85,7 +85,7 @@ router.post('/', verifyToken, upload.array('images',4), (req, res, next) => {
 router.put('/:id', verifyToken, (req, res) => {
     jwt.verify(req.token, 'secretkey', (err, authData) => {
         if(err) {
-            res.sendStatus(403);
+            res.sendStatus(401);
         } else {
 
             const found =posts.some(post => post.id === parseInt(req.params.id));
@@ -100,13 +100,13 @@ router.put('/:id', verifyToken, (req, res) => {
                         //verify if the authorized user has created the post
                         if (post.username !== authData.users.username) {
                             //if not error
-                            return res.sendStatus(400);
+                            return res.sendStatus(401);
                     
                         } 
                         //update the post information
                         post.title = updpost.title ? updpost.title : post.title;
                         post.category = updpost.category ? updpost.category : post.category;
-                        post.location= updpost.location ? updpost.location : post.location;
+                        post.location = updpost.location ? updpost.location : post.location;
                         post.price = updpost.price ? updpost.price : post.price;
                         post.delivery = updpost.delivery ? updpost.delivery: post.delivery;
                         
@@ -177,7 +177,7 @@ router.get('/location/:search', (req, res) => {
     if (found) {
         res.json(posts.filter(post => post.location === req.params.search));
     } else {
-        res.status(400).json({ msg: `No location with the name of ${req.params.search}` });
+        res.status(400).json({ msg: `No posts location with the name of ${req.params.search}` });
     }  
 });
 
