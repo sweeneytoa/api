@@ -1,0 +1,597 @@
+openapi: 3.0.0
+info:
+  title: API
+  version: '1.0'
+  contact:
+    email: emilbylykbashi@yahoo.com
+    name: Emil Bylykbashi
+  description: API implementation for a selling app with users and posts
+servers:
+  - url: 'http://localhost:3000'
+paths:
+  /api/posts:
+    get:
+      summary: Get all posts
+      tags: []
+      responses:
+        '200':
+          description: OK
+          headers: {}
+      operationId: get-api-posts
+      description: Show all the postings
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                title:
+                  type: string
+                description:
+                  type: string
+                category:
+                  type: string
+                location:
+                  type: string
+                images:
+                  type: array
+                  items:
+                    type: string
+                price:
+                  type: string
+                date:
+                  type: string
+                delivery:
+                  type: string
+                email:
+                  type: string
+                username:
+                  type: string
+              required:
+                - id
+                - title
+                - description
+                - category
+                - location
+                - price
+                - date
+                - delivery
+                - email
+                - username
+            examples:
+              response:
+                value:
+                  - id: 1
+                    title: Zara
+                    description: Best shirt
+                    category: Cars
+                    location: Oulu
+                    images: ''
+                    price: '400'
+                    date: '2019'
+                    delivery: Pickup
+                    email: email@yahoo.com
+                    username: Emil
+                  - id: 2
+                    title: BMW
+                    description: Fastest car
+                    category: Cars
+                    location: Oulu
+                    images: ''
+                    price: '40000'
+                    date: '2017'
+                    delivery: Shipping
+                    email: email@gmail.com
+                    username: Juar
+    post:
+      summary: Create a post
+      operationId: post-api-posts
+      responses:
+        '200':
+          description: OK
+        '201':
+          description: Created
+        '400':
+          description: Please inculde all the information to create a post
+        '401':
+          description: Unauthorized
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                title:
+                  type: string
+                description:
+                  type: string
+                category:
+                  type: string
+                location:
+                  type: string
+                images:
+                  type: array
+                  items:
+                    type: string
+                price:
+                  type: string
+                date:
+                  type: string
+                delivery:
+                  type: string
+                seller:
+                  type: string
+                email:
+                  type: string
+                username:
+                  type: string
+              required:
+                - id
+                - title
+                - description
+                - category
+                - location
+                - price
+                - date
+                - delivery
+                - seller
+                - email
+                - username
+            examples:
+              response:
+                value:
+                  - id: 1
+                    title: Zara
+                    description: Best shirt
+                    category: Cars
+                    location: Oulu
+                    images: ''
+                    price: '400'
+                    date: '2019'
+                    delivery: Pickup
+                    email: email@yahoo.com
+                    username: Emil
+                  - id: 2
+                    title: BMW
+                    description: Fastest car
+                    category: Cars
+                    location: Oulu
+                    images: ''
+                    price: '40000'
+                    date: '2017'
+                    delivery: Shipping
+                    email: email@gmail.com
+                    username: Juar
+                  - id: 3
+                    title: test1
+                    description: test
+                    category: test
+                    location: test
+                    images:
+                      - 'uploads/2020-02-27T16:52:53.109Z25057302.jpg'
+                      - 'uploads/2020-02-27T16:52:53.117Zcompetitor-monitoring.png'
+                    price: test
+                    date: '2020-02-27'
+                    delivery: test
+                    email: emilbtl@yahoo.com
+                    username: Emil
+        description: Using form data because of the image upload
+      description: Create a new post if authorized
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Authorization
+          description: Check authorization token with bearer
+          required: true
+    parameters: []
+  '/api/posts/{id}':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    get:
+      summary: Search post by id
+      tags: []
+      responses:
+        '200':
+          description: OK
+      operationId: 'get-api-posts-:id'
+      description: Search for a post giving the id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                descprition:
+                  type: string
+                category:
+                  type: string
+                location:
+                  type: string
+                'images ':
+                  type: array
+                  items:
+                    type: string
+                price:
+                  type: string
+                date:
+                  type: string
+                delivery:
+                  type: string
+                username:
+                  type: string
+                email:
+                  type: string
+            examples:
+              response:
+                value:
+                  - id: 1
+                    title: Zara
+                    description: Best shirt
+                    category: Cars
+                    location: Oulu
+                    images: ''
+                    price: '400'
+                    date: '2019'
+                    delivery: Pickup
+                    email: email@yahoo.com
+                    username: Emil
+        description: ''
+    put:
+      summary: Modifiy a post
+      operationId: 'put-api-posts-:id'
+      responses:
+        '200':
+          description: OK
+        '201':
+          description: Created
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      description: Modifiy a post giving its id only if its your post using authorization
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Authorization
+          description: bearer authorization
+          required: true
+        - schema:
+            type: string
+          in: header
+          name: Content-Type
+          description: application/json
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                description:
+                  type: string
+                category:
+                  type: string
+                location:
+                  type: string
+                image:
+                  type: array
+                  items:
+                    type: string
+                price:
+                  type: string
+                date:
+                  type: string
+                delivery:
+                  type: string
+            examples:
+              response:
+                value:
+                  msg: post Updated
+                  post:
+                    id: 1
+                    title: bora
+                    description: Best shirt
+                    category: bora
+                    location: bora
+                    images: ''
+                    price: bora
+                    date: '2019'
+                    delivery: bora
+                    email: email@yahoo.com
+                    username: Emil
+              request:
+                value:
+                  title: bora
+                  category: bora
+                  location: bora
+                  price: bora
+                  delivery: bora
+        description: "{\n\t\"title\": \"bora\",\n\t\"category\": \"bora\",\n\t\"location\": \"bora\",\n\t\"price\": \"bora\",\n\t\"delivery\": \"bora\"\n\n}"
+    delete:
+      summary: Delete a post
+      operationId: 'delete-api-posts-:id'
+      responses:
+        '200':
+          description: OK
+        '201':
+          description: Created
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      description: delete a post by id if you are the user who created it by using authorization
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: authorization
+          description: bearer authorization
+          required: true
+        - schema:
+            type: string
+          in: header
+          name: Content-Type
+          description: application/json
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                title:
+                  type: string
+                description:
+                  type: string
+                category:
+                  type: string
+                location:
+                  type: string
+                images:
+                  type: array
+                  items:
+                    type: string
+                price:
+                  type: string
+                date:
+                  type: string
+                delivery:
+                  type: string
+                email:
+                  type: string
+                username:
+                  type: string
+            examples:
+              response:
+                value:
+                  msg: Deleted post with the id of 1
+  '/api/posts/category/{search}':
+    get:
+      summary: Search posts of a category
+      tags: []
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: No post with that location
+      operationId: get-api-posts-search
+      description: search for a category and list the post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+            examples:
+              response:
+                value:
+                  - id: 2
+                    title: BMW
+                    description: Fastest car
+                    category: Cars
+                    location: Oulu
+                    images: ''
+                    price: '40000'
+                    date: '2017'
+                    delivery: Shipping
+                    email: email@gmail.com
+                    username: Juar
+        description: 'http://localhost:3000/api/posts/category/Cars'
+    parameters:
+      - schema:
+          type: string
+        name: search
+        in: path
+        required: true
+        description: 'name of the category '
+  '/api/posts/date/{search}':
+    get:
+      summary: Search posts by date
+      tags: []
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: No post was made in this date
+      operationId: get-api-postsdate
+      description: search all post within the date given in format YYYY-MM-DD
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+            examples:
+              response: {}
+        description: 'http://localhost:3000/api/posts/date/2020-02-26'
+    parameters:
+      - schema:
+          type: string
+        name: search
+        in: path
+        required: true
+  '/api/posts/location/{search}':
+    get:
+      summary: Search posts by location
+      tags: []
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: No post in this location
+      operationId: get-api-posts-location
+      description: Get all post related to the location passed as parameter
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+            examples:
+              response: {}
+        description: 'http://localhost:3000/api/posts/date/oulu'
+    parameters:
+      - schema:
+          type: string
+        name: search
+        in: path
+        required: true
+  /api/registration:
+    get:
+      summary: Register user
+      tags: []
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Please add all the required information
+      operationId: get-api-registration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                username:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+              required:
+                - id
+                - username
+                - email
+                - password
+            examples:
+              request:
+                value:
+                  username: Emil
+                  email: juar@gmail.com
+                  password: bosi
+              response:
+                value:
+                  - id: 1
+                    username: brad
+                    email: brad@gmail.com
+                    password: '123'
+                  - id: 2
+                    username: juar
+                    email: juar@gmail.com
+                    password: emil
+                  - id: 3
+                    username: Emil
+                    email: emilbtl@yahoo.com
+                    password: $2b$10$dt9BaQYl4svRpxC8WqIHXu/1cO.YSpCXqve3VK64cROLOQaX7n1Qm
+                  - id: 4
+                    username: Emil
+                    email: emilbtl@yahoo.com
+                    password: $2b$10$gsidD.o2RkaBlna4qvCWs.zyKdv8HCLADbvn7ropnxflefTZxLZMu
+        description: "{\n\t\"username\": \"Emil\",\n\t\"email\": \"emilbtl@yahoo.com\",\n\t\"password\": \"bosi\"\n}"
+      description: Create a new user and add it to the database
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Content-Type
+          description: application/json
+          required: true
+  /api/login:
+    get:
+      summary: Login
+      tags: []
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+      operationId: get-api-login
+      description: Login with an existing user and get the authorization token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+              required:
+                - username
+                - password
+            examples:
+              request:
+                value:
+                  username: Emil
+                  email: juar@gmail.com
+                  password: bosi
+              response:
+                value:
+                  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VycyI6eyJpZCI6MywidXNlcm5hbWUiOiJFbWlsIiwiZW1haWwiOiJlbWlsYnRsQHlhaG9vLmNvbSIsInBhc3N3b3JkIjoiJDJiJDEwJGR0OUJhUVlsNHN2UnB4QzhXcUlIWHUvMWNPLllTcENYcXZlM1ZLNjRjUk9MT1FhWDduMVFtIn0sImlhdCI6MTU4MjgyMzA0Nn0.qKQ4kYfl_zB8wHxWbSbHRc0FGmfHDWEeA4MIc19-lXY
+        description: "{\n\t\"username\": \"Emil\",\n\t\"email\": \"juar@gmail.com\",\n\t\"password\": \"bosi\"\n    \n}"
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Content-Type
+          description: application/json
+          required: true
+        - schema:
+            type: string
+          in: header
+          name: Authorization
+          description: Bearer token
+          required: true
+components:
+  schemas: {}
+  securitySchemes: {}
