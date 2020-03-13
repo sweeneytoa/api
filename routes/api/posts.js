@@ -57,7 +57,7 @@ router.post('/', verifyToken, upload.array('images',4), (req, res, next) => {
                 description: req.body.description,
                 category: req.body.category,
                 location: req.body.location,
-                images: req.files.map(file => file.path),
+                images: req.files,
                 price: req.body.price,
                 date: new Date().toISOString().slice(0,10),
                 delivery: req.body.delivery,
